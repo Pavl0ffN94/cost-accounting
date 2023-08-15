@@ -2,7 +2,7 @@ import {useState} from 'react';
 
 import React from 'react';
 
-const Form = (title, handleClick) => {
+const Form = ({title, handleClick}) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
@@ -24,9 +24,9 @@ const Form = (title, handleClick) => {
         type='submit'
         onClick={() => {
           handleClick(email, password);
-        }}
-        name={title}
-      />
+        }}>
+        {title}
+      </button>
     </div>
   );
 };

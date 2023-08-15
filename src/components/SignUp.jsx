@@ -10,6 +10,7 @@ function SignUp() {
 
   const handleRegister = (email, password) => {
     const auth = getAuth();
+    console.log(auth);
     createUserWithEmailAndPassword(auth, email, password)
       .then(console.log)
       .catch(console.error);

@@ -1,33 +1,53 @@
-import {useState} from 'react';
-
 import React from 'react';
+import {useState, useCallback} from 'react';
+import {InputField} from './InputField';
 
-const Form = ({title, handleClick}) => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+const Form = () => {
+  const [formState, setFormState] = useState({
+    email: '',
+    password: '',
+  });
+
+  const clearState = useCallback(() => {
+    setFormState({
+      email: '',
+      password: '',
+    });
+  }, []);
+
+  const handleSubmit = useCallback(
+    evt => {
+      evt.preventDefault();
+
+      clearState();
+    },
+    [clearState],
+  );
+
+  const hadleChange = useCallback((newValue, valueKey) => {
+    setFormState(prevState => ({
+      ...prevState,
+      [valueKey]: newValue,
+    }));
+  }, []);
 
   return (
-    <div>
-      <input
+    <form onSubmit={handleSubmit}>
+      <InputField
         type='email'
-        value={email}
-        onChange={evt => setEmail(evt.target.value)}
-        placeholder='email'
+        valueKey='email'
+        onChange={hadleChange}
+        value={formState.email}
       />
-      <input
+
+      <InputField
         type='password'
-        value={password}
-        onChange={evt => setPassword(evt.target.value)}
-        placeholder='password'
+        valueKey='password'
+        onChange={hadleChange}
+        value={formState.password}
       />
-      <button
-        type='submit'
-        onClick={() => {
-          handleClick(email, password);
-        }}>
-        {title}
-      </button>
-    </div>
+      <button type='submit'>Submit</button>
+    </form>
   );
 };
 

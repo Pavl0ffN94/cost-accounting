@@ -9,7 +9,7 @@ const LoginPage = () => {
       <Login />
 
       <p>
-        or <Link to='/registerpage'> register</Link>
+        or <Link to='/registerpage'> Sign Up</Link>
       </p>
     </div>
   );

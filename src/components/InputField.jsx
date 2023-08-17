@@ -10,6 +10,7 @@ const InputImpl = ({value: propsValue, onChange, valueKey, type, error}) => {
 
   return (
     <div>
+      {error && <span style={{color: 'red'}}>{error}</span>}
       <input
         onBlur={onBlur}
         type={type || 'text'}
@@ -18,7 +19,6 @@ const InputImpl = ({value: propsValue, onChange, valueKey, type, error}) => {
         placeholder={valueKey}
         onChange={evt => setValue(evt.target.value, 'email')}
       />
-      {error && <span style={{color: 'red'}}>{error}</span>}
     </div>
   );
 };

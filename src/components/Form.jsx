@@ -13,6 +13,10 @@ const FormImpl = ({handleSubmit}) => {
     password: '',
   });
 
+  const hasErrors =
+    Object.values(errors).some(error => error !== '') ||
+    Object.values(formState).some(value => value === '');
+
   const validateField = value => {
     if (value.trim() === '') {
       return 'Это поле обязательно';
@@ -35,8 +39,6 @@ const FormImpl = ({handleSubmit}) => {
     },
     [setFormState, setErrors],
   );
-
-  const hasErrors = Object.values(errors).some(error => error !== '');
 
   const handleChandgeSubmit = useCallback(
     event => {

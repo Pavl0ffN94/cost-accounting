@@ -1,7 +1,7 @@
 import React from 'react';
 import {useState, useCallback, memo} from 'react';
 
-const InputImpl = ({value: propsValue, onChange, valueKey, type}) => {
+const InputImpl = ({value: propsValue, onChange, valueKey, type, error}) => {
   const [value, setValue] = useState(propsValue);
 
   const onBlur = useCallback(() => {
@@ -18,6 +18,7 @@ const InputImpl = ({value: propsValue, onChange, valueKey, type}) => {
         placeholder={valueKey}
         onChange={evt => setValue(evt.target.value, 'email')}
       />
+      {error && <span style={{color: 'red'}}>{error}</span>}
     </div>
   );
 };

@@ -8,15 +8,35 @@ const FormImpl = ({handleSubmit}) => {
     password: '',
   });
 
+  const [errors, setErrors] = useState({
+    email: '',
+    password: '',
+  });
+
+  const validateField = value => {
+    if (value.trim() === '') {
+      return 'Это поле обязательно';
+    }
+    return '';
+  };
+
   const hadleChange = useCallback(
     (newValue, valueKey) => {
       setFormState(prevState => ({
         ...prevState,
         [valueKey]: newValue,
       }));
+
+      const error = validateField(newValue);
+      setErrors(prevState => ({
+        ...prevState,
+        [valueKey]: error,
+      }));
     },
-    [setFormState],
+    [setFormState, setErrors],
   );
+
+  const hasErrors = Object.values(errors).some(error => error !== '');
 
   const handleChandgeSubmit = useCallback(
     event => {
@@ -33,6 +53,7 @@ const FormImpl = ({handleSubmit}) => {
         valueKey='email'
         onChange={hadleChange}
         value={formState.email}
+        error={errors.email}
       />
 
       <InputField
@@ -40,8 +61,11 @@ const FormImpl = ({handleSubmit}) => {
         valueKey='password'
         onChange={hadleChange}
         value={formState.password}
+        error={errors.password}
       />
-      <button type='submit'>Submit</button>
+      <button type='submit' disabled={hasErrors}>
+        Submit
+      </button>
     </form>
   );
 };

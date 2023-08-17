@@ -14,6 +14,7 @@ function SignUpImpl() {
 
   const handleRegister = (email, password) => {
     const auth = getAuth();
+
     createUserWithEmailAndPassword(auth, email, password)
       .then(({user}) => {
         dispatch(
@@ -26,9 +27,8 @@ function SignUpImpl() {
         push();
       })
       .catch(error => {
-        const errorCode = error.code;
         const errorMessage = error.message;
-        console.log(errorCode, errorMessage);
+        console.log(errorMessage);
       });
   };
   return <Form title='register' handleSubmit={handleRegister} />;

@@ -12,6 +12,7 @@ const LoginImpl = () => {
 
   const handleLogin = (email, password) => {
     const auth = getAuth();
+
     signInWithEmailAndPassword(auth, email, password)
       .then(({user}) => {
         console.log(user);

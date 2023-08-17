@@ -2,37 +2,32 @@ import React from 'react';
 import {useState, useCallback, memo} from 'react';
 import {InputField} from './InputField';
 
-const FormImpl = () => {
+const FormImpl = ({handleSubmit}) => {
   const [formState, setFormState] = useState({
     email: '',
     password: '',
   });
 
-  const clearState = useCallback(() => {
-    setFormState({
-      email: '',
-      password: '',
-    });
-  }, []);
-
-  const handleSubmit = useCallback(
-    evt => {
-      evt.preventDefault();
-
-      clearState();
+  const hadleChange = useCallback(
+    (newValue, valueKey) => {
+      setFormState(prevState => ({
+        ...prevState,
+        [valueKey]: newValue,
+      }));
     },
-    [clearState],
+    [setFormState],
   );
 
-  const hadleChange = useCallback((newValue, valueKey) => {
-    setFormState(prevState => ({
-      ...prevState,
-      [valueKey]: newValue,
-    }));
-  }, []);
+  const handleChandgeSubmit = useCallback(
+    event => {
+      event.preventDefault();
+      handleSubmit(formState.email, formState.password);
+    },
+    [handleSubmit, formState.email, formState.password],
+  );
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleChandgeSubmit}>
       <InputField
         type='email'
         valueKey='email'

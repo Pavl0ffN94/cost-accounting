@@ -1,8 +1,9 @@
-import {SignUp} from 'components/SignUp';
 import React from 'react';
+import {memo} from 'react';
+import {SignUp} from 'components/SignUp';
 import {Link} from 'react-router-dom';
 
-const RegisterPage = () => {
+const RegisterPageImpl = () => {
   return (
     <div>
       <h1>Register</h1>
@@ -13,5 +14,4 @@ const RegisterPage = () => {
     </div>
   );
 };
-
-export {RegisterPage};
+export const RegisterPage = memo(RegisterPageImpl);

@@ -1,10 +1,11 @@
 import {Form} from './Form';
+import {memo} from 'react';
 import {setUser} from 'store/slices/userSlice';
 import {useNavigate} from 'react-router-dom';
 import {useDispatch} from 'react-redux';
 import {getAuth, signInWithEmailAndPassword} from 'firebase/auth';
 
-const Login = () => {
+const LoginImpl = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const push = () => navigate('/');
@@ -30,4 +31,4 @@ const Login = () => {
   return <Form title='sign in' handleSubmit={handleLogin} />;
 };
 
-export {Login};
+export const Login = memo(LoginImpl);

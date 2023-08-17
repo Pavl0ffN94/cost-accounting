@@ -1,10 +1,11 @@
 import React from 'react';
+import {memo} from 'react';
 import {Navigate} from 'react-router-dom';
 import {useAuth} from '../hooks/useAuth';
 import {useDispatch} from 'react-redux';
 import {removeUser} from 'store/slices/userSlice';
 
-const HomePage = () => {
+const HomePageImpl = () => {
   const dispatch = useDispatch();
 
   const {isAuth, email} = useAuth();
@@ -20,4 +21,4 @@ const HomePage = () => {
   );
 };
 
-export {HomePage};
+export const HomePage = memo(HomePageImpl);

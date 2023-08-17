@@ -1,12 +1,13 @@
 import {useDispatch} from 'react-redux';
 import {useNavigate} from 'react-router-dom';
 import {getAuth, createUserWithEmailAndPassword} from 'firebase/auth';
+import {memo} from 'react';
 import {Form} from './Form';
 import {setUser} from 'store/slices/userSlice';
 
 import React from 'react';
 
-function SignUp() {
+function SignUpImpl() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const push = () => navigate('/login');
@@ -33,4 +34,4 @@ function SignUp() {
   return <Form title='register' handleSubmit={handleRegister} />;
 }
 
-export {SignUp};
+export const SignUp = memo(SignUpImpl);

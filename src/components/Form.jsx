@@ -1,8 +1,8 @@
 import React from 'react';
-import {useState, useCallback} from 'react';
+import {useState, useCallback, memo} from 'react';
 import {InputField} from './InputField';
 
-const Form = () => {
+const FormImpl = () => {
   const [formState, setFormState] = useState({
     email: '',
     password: '',
@@ -51,4 +51,4 @@ const Form = () => {
   );
 };
 
-export {Form};
+export const Form = memo(FormImpl);

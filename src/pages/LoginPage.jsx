@@ -1,8 +1,9 @@
-import {Login} from 'components/Login';
 import React from 'react';
+import {memo} from 'react';
+import {Login} from 'components/Login';
 import {Link} from 'react-router-dom';
 
-const LoginPage = () => {
+const LoginPageImpl = () => {
   return (
     <div>
       <h1>Login</h1>
@@ -15,4 +16,4 @@ const LoginPage = () => {
   );
 };
 
-export {LoginPage};
+export const LoginPage = memo(LoginPageImpl);

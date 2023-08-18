@@ -5,7 +5,7 @@ import {Link} from 'react-router-dom';
 
 const LoginPageImpl = () => {
   return (
-    <div>
+    <div className='page__form'>
       <h1>Login</h1>
       <Login />
 

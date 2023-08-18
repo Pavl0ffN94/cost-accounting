@@ -1,28 +1,41 @@
 import React from 'react';
+import '../index.css';
 import {useState, useCallback, memo} from 'react';
 import {InputField} from './InputField';
 
-const FormImpl = ({handleSubmit}) => {
+const FormImpl = ({title, handleSubmit}) => {
   const [formState, setFormState] = useState({
     email: '',
     password: '',
+    confirmPassword: '',
   });
 
   const [errors, setErrors] = useState({
     email: '',
     password: '',
+    confirmPassword: '',
   });
 
   const hasErrors =
     Object.values(errors).some(error => error !== '') ||
-    Object.values(formState).some(value => value === '');
+    Object.values(formState.password).some(value => value === '');
 
-  const validateField = value => {
-    if (value.trim() === '') {
-      return 'Это поле обязательно';
-    }
-    return '';
-  };
+  const validateField = useCallback(
+    (value, valueKey) => {
+      if (value.trim() === '') {
+        return 'Это поле обязательно';
+      } else if (
+        valueKey === 'email' &&
+        !/^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$/.test(value)
+      ) {
+        return 'Некорректный email';
+      } else if (valueKey === 'confirmPassword' && value !== formState.password) {
+        return 'Пароли не совпадают';
+      }
+      return '';
+    },
+    [formState.password],
+  );
 
   const hadleChange = useCallback(
     (newValue, valueKey) => {
@@ -31,13 +44,13 @@ const FormImpl = ({handleSubmit}) => {
         [valueKey]: newValue,
       }));
 
-      const error = validateField(newValue);
+      const error = validateField(newValue, valueKey);
       setErrors(prevState => ({
         ...prevState,
         [valueKey]: error,
       }));
     },
-    [setFormState, setErrors],
+    [setFormState, setErrors, validateField],
   );
 
   const handleChandgeSubmit = useCallback(
@@ -49,7 +62,7 @@ const FormImpl = ({handleSubmit}) => {
   );
 
   return (
-    <form onSubmit={handleChandgeSubmit}>
+    <form className='form__entries' onSubmit={handleChandgeSubmit}>
       <InputField
         type='email'
         valueKey='email'
@@ -57,7 +70,6 @@ const FormImpl = ({handleSubmit}) => {
         value={formState.email}
         error={errors.email}
       />
-
       <InputField
         type='password'
         valueKey='password'
@@ -65,7 +77,16 @@ const FormImpl = ({handleSubmit}) => {
         value={formState.password}
         error={errors.password}
       />
-      <button type='submit' disabled={hasErrors}>
+      {title === 'register' ? (
+        <InputField
+          type='password'
+          valueKey='confirmPassword'
+          onChange={hadleChange}
+          value={formState.confirmPassword}
+          error={errors.confirmPassword}
+        />
+      ) : null}
+      <button type='submit' className='form__btn' disabled={hasErrors}>
         Submit
       </button>
     </form>

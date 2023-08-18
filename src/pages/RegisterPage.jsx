@@ -5,10 +5,9 @@ import {Link} from 'react-router-dom';
 
 const RegisterPageImpl = () => {
   return (
-    <div>
+    <div className='page__form'>
       <h1>Register</h1>
       <SignUp />
-
       <p>Alredy have an accouunting? </p>
       <Link to='/login'>Sign in </Link>
     </div>

@@ -1,4 +1,5 @@
 import React from 'react';
+import '../index.css';
 import {useState, useCallback, memo} from 'react';
 
 const InputImpl = ({value: propsValue, onChange, valueKey, type, error}) => {
@@ -9,8 +10,8 @@ const InputImpl = ({value: propsValue, onChange, valueKey, type, error}) => {
   }, [value, valueKey, onChange]);
 
   return (
-    <div>
-      {error && <span style={{color: 'red'}}>{error}</span>}
+    <div className='input__field'>
+      {error && <label style={{color: 'red'}}>{error}</label>}
       <input
         onBlur={onBlur}
         type={type || 'text'}

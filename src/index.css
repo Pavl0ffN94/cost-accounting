@@ -4,6 +4,10 @@ body {
   align-items: center;
   justify-content: center;
   height: 98vh;
+  background-image: url(https://pcvector.net/uploads/posts/2018-08/1533326959_low-poly-background-generator-min.png);
+  background-size: no-repeat;
+  background-position: center;
+  background-size: cover;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
@@ -11,3 +15,36 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+.page__form{
+  max-height: 350px;
+  text-align: center;
+  padding: 15px;
+  background-color: rgba(40, 150, 240, 0.4);
+  border-radius: 15px;
+}
+
+.form__entries{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.input__field{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  margin: 10px 0;
+}
+
+.form__btn{
+  border: none;
+  background-color: black;
+  color: #fff;
+  border-radius: 5px;
+  margin: 10px 0;
+  cursor: pointer;
+  padding: 5px;
+}

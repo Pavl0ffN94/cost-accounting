@@ -1,6 +1,6 @@
 import React from 'react';
 import {memo} from 'react';
-import {Login} from 'components/Login';
+import {Login} from '../components/inputForm/Login';
 import {Link} from 'react-router-dom';
 
 const LoginPageImpl = () => {
@@ -8,10 +8,9 @@ const LoginPageImpl = () => {
     <div className='page__form'>
       <h1>Login</h1>
       <Login />
-
-      <p>
-        or <Link to='/registerpage'> Sign Up</Link>
-      </p>
+      <Link className='link__entry' to='/registerpage'>
+        Sign Up
+      </Link>
     </div>
   );
 };

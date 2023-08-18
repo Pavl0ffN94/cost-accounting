@@ -1,4 +1,4 @@
-import {Form} from './Form';
+import {Form} from '../inputForm/Form';
 import {memo} from 'react';
 import {setUser} from 'store/slices/userSlice';
 import {useNavigate} from 'react-router-dom';
@@ -18,7 +18,6 @@ const LoginImpl = () => {
 
     signInWithEmailAndPassword(auth, email, password)
       .then(({user}) => {
-        console.log(user);
         dispatch(
           setUser({
             email: user.email,

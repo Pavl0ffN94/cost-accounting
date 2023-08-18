@@ -1,5 +1,5 @@
 import React from 'react';
-import '../index.css';
+import '../../index.css';
 import {useState, useCallback, memo} from 'react';
 
 const InputImpl = ({value: propsValue, onChange, valueKey, type, error}) => {
@@ -11,7 +11,6 @@ const InputImpl = ({value: propsValue, onChange, valueKey, type, error}) => {
 
   return (
     <div className='input__field'>
-      {error && <label style={{color: 'red'}}>{error}</label>}
       <input
         onBlur={onBlur}
         type={type || 'text'}
@@ -20,6 +19,7 @@ const InputImpl = ({value: propsValue, onChange, valueKey, type, error}) => {
         placeholder={valueKey}
         onChange={evt => setValue(evt.target.value, 'email')}
       />
+      {error && <label className='eror__message'>{error}</label>}
     </div>
   );
 };

@@ -4,7 +4,7 @@ import {getAuth, createUserWithEmailAndPassword} from 'firebase/auth';
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
 import {memo} from 'react';
-import {Form} from './Form';
+import {Form} from '../inputForm/Form';
 import {setUser} from 'store/slices/userSlice';
 
 import React from 'react';

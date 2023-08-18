@@ -1,6 +1,7 @@
 import React from 'react';
+import '../index.css';
 import {memo} from 'react';
-import {SignUp} from 'components/SignUp';
+import {SignUp} from '../components/inputForm/SignUp';
 import {Link} from 'react-router-dom';
 
 const RegisterPageImpl = () => {
@@ -8,8 +9,10 @@ const RegisterPageImpl = () => {
     <div className='page__form'>
       <h1>Register</h1>
       <SignUp />
-      <p>Alredy have an accouunting? </p>
-      <Link to='/login'>Sign in </Link>
+      <p className='reg__request'>Alredy have an accouunting? </p>
+      <Link className='link__entry' to='/login'>
+        Sign in{' '}
+      </Link>
     </div>
   );
 };

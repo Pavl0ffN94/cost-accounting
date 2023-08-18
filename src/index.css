@@ -13,7 +13,7 @@ body {
 }
 
 .page__form{
-  max-height: 350px;
+  max-height: 390px;
   text-align: center;
   padding: 15px;
   background-color: rgba(40, 150, 240, 0.4);
@@ -33,17 +33,49 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  border: none;
   margin: 10px 0;
 }
 
+.input__field input{
+  display: block;
+  outline:none;
+  border: 1px solid #0089fb;
+  font: inherit;
+  border-radius: 5px;
+}
+
 .form__btn{
-  border: none;
+  border: 1px solid #0089fb;
+  width: 100px;
   background-color: black;
   color: #fff;
-  border-radius: 5px;
+  width: 130px;
+  height: 30px;
   margin: 10px 0;
   cursor: pointer;
   padding: 5px;
+  border-radius: 15px;
 }
  
+.eror__message{
+  color: #ff3c3c;
+  font-size: 12px;
+}
+
+.reg__request{
+  font-size: 12px;
+  color: #fff;
+}
+
+.link__entry{
+  display: block;
+  margin: 0 auto;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+  width: 130px;
+  height: 30px;
+  background-color: #fff;
+  color: #000;
+  border-radius: 15px;
+}

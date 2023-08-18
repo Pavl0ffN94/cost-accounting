@@ -1,5 +1,5 @@
 import React from 'react';
-import '../index.css';
+import '../../index.css';
 import {useState, useCallback, memo} from 'react';
 import {InputField} from './InputField';
 
@@ -88,7 +88,7 @@ const FormImpl = ({title, handleSubmit}) => {
       ) : null}
 
       <button type='submit' className='form__btn' disabled={hasErrors}>
-        Submit
+        Go In
       </button>
     </form>
   );

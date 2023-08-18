@@ -86,6 +86,7 @@ const FormImpl = ({title, handleSubmit}) => {
           error={errors.confirmPassword}
         />
       ) : null}
+
       <button type='submit' className='form__btn' disabled={hasErrors}>
         Submit
       </button>

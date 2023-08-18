@@ -1,13 +1,10 @@
 body {
   display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 98vh;
-  background-image: url(https://pcvector.net/uploads/posts/2018-08/1533326959_low-poly-background-generator-min.png);
-  background-size: no-repeat;
-  background-position: center;
-  background-size: cover;
+  padding: 50px 0;
+  background: rgb(2,0,36);
+  background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(25,5,142,1) 42%, rgba(0,212,255,1) 100%);
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
@@ -28,6 +25,7 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  max-height: 600px;
 }
 
 .input__field{
@@ -48,3 +46,4 @@ body {
   cursor: pointer;
   padding: 5px;
 }
+ 

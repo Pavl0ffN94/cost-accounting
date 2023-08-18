@@ -31,9 +31,7 @@ function SignUpImpl() {
       })
       .catch(error => {
         const errorMessage = error.message;
-        mySwal.fire({
-          title: <p>{errorMessage}</p>,
-        });
+        mySwal.fire(`${errorMessage}`);
       });
   };
   return <Form title='register' handleSubmit={handleRegister} />;

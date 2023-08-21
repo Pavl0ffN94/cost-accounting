@@ -8,9 +8,10 @@ import {
      PERSIST,
      PURGE,
      REGISTER,
-     } from 'redux-persist'
-import storage from 'redux-persist/lib/storage' 
-import userReducer from './slices/userSlice'
+     } from 'redux-persist';
+import storage from 'redux-persist/lib/storage';
+import { usersReducer } from './slices/userSlice';
+import { costsReducer } from './slices/costSlice';
 
 const persistConfig = {
     key: 'root',
@@ -18,7 +19,8 @@ const persistConfig = {
   }
 
   const rootReducer = combineReducers({
-    user: userReducer,
+    users: usersReducer,
+    costs: costsReducer,
   });
 
   const persistedReducer = persistReducer(persistConfig, rootReducer);

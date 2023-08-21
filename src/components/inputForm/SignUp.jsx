@@ -1,39 +1,32 @@
+import React, {memo} from 'react';
 import {useDispatch} from 'react-redux';
-import {useNavigate} from 'react-router-dom';
-import {getAuth, createUserWithEmailAndPassword} from 'firebase/auth';
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
-import {memo} from 'react';
 import {Form} from '../inputForm/Form';
-import {setUser} from 'store/slices/userSlice';
-
-import React from 'react';
+import {addUser} from 'store/slices/userSlice';
+import {useNavigate} from 'react-router-dom';
 
 function SignUpImpl() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const push = () => navigate('/login');
   const mySwal = withReactContent(Swal);
 
   const handleRegister = (email, password) => {
-    const auth = getAuth();
+    const newUser = {
+      id: Math.random(),
+      email: email,
+      password: password,
+    };
 
-    createUserWithEmailAndPassword(auth, email, password)
-      .then(({user}) => {
-        dispatch(
-          setUser({
-            email: user.email,
-            id: user.uid,
-            token: user.accessToken,
-          }),
-        );
-        push();
-      })
-      .catch(error => {
-        const errorMessage = error.message;
-        mySwal.fire(`${errorMessage}`);
-      });
+    dispatch(addUser(newUser));
+    mySwal.fire({
+      icon: 'success',
+      title: 'Регистрация успешна!',
+      text: 'Вы успешно зарегистрировались!',
+    });
+    navigate('/login');
   };
+
   return <Form title='register' handleSubmit={handleRegister} />;
 }
 

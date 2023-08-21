@@ -11,7 +11,7 @@ const RegisterPageImpl = () => {
       <SignUp />
       <p className='reg__request'>Alredy have an accouunting? </p>
       <Link className='link__entry' to='/login'>
-        Sign in{' '}
+        Sign in
       </Link>
     </div>
   );

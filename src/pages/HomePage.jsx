@@ -13,7 +13,7 @@ const HomePageImpl = () => {
       id: '',
       date: new Date(),
       description: '',
-      amount: Number,
+      amount: '',
     },
   ]);
   const dispatch = useDispatch();

@@ -1,27 +1,26 @@
-import {createSlice} from "@reduxjs/toolkit";    
+import { createSlice, createEntityAdapter } from "@reduxjs/toolkit";
 
-const initialState = {
-    email: null,
-    token: null,
-    id: null,
-};
-const userSlice = createSlice({
-    name: 'user',
-    initialState,
-    reducers: {
-        setUser(state, action)  {
-            state.email = action.payload.email;
-            state.token = action.payload.token;
-            state.id = action.payload.id;
-        },
-        removeUser(state) {
-            state.email = null;
-            state.token = null;
-            state.id = null;
-        },
-    },
+const usersAdapter = createEntityAdapter();
+
+const usersSlice = createSlice({
+  name: "users",
+  initialState: usersAdapter.getInitialState(),
+  reducers: {
+    addUser: usersAdapter.addOne,
+    removeUser: usersAdapter.removeOne,
+    updateUser: usersAdapter.updateOne,
+  },
 });
 
-export const {setUser, removeUser} = userSlice.actions;
+export const {
+  addUser,
+  removeUser,
+  updateUser,
+} = usersSlice.actions;
 
-export default userSlice.reducer;
+export const {
+  selectAll: selectAllUsers,
+  selectById: selectUserById,
+} = usersAdapter.getSelectors((state) => state.users);
+
+export const usersReducer = usersSlice.reducer;

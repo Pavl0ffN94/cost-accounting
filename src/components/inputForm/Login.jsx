@@ -1,40 +1,38 @@
-import {Form} from '../inputForm/Form';
-import {memo} from 'react';
-import {setUser} from 'store/slices/userSlice';
-import {useNavigate} from 'react-router-dom';
-import {useDispatch} from 'react-redux';
+import React, {memo} from 'react';
+import {useSelector} from 'react-redux';
+import {Form} from './Form';
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
-import {getAuth, signInWithEmailAndPassword} from 'firebase/auth';
+import {useNavigate} from 'react-router-dom';
 
 const LoginImpl = () => {
-  const dispatch = useDispatch();
   const navigate = useNavigate();
-  const push = () => navigate('/');
   const mySwal = withReactContent(Swal);
 
-  const handleLogin = (email, password) => {
-    const auth = getAuth();
+  const users = useSelector(state => state.users.users);
 
-    signInWithEmailAndPassword(auth, email, password)
-      .then(({user}) => {
-        dispatch(
-          setUser({
-            email: user.email,
-            id: user.uid,
-            token: user.accessToken,
-          }),
-        );
-        push();
-      })
-      .catch(error => {
-        const errorMessage = error.message;
-        mySwal.fire({
-          title: <p>{errorMessage}</p>,
-        });
+  const handleLogin = (email, password) => {
+    // Поиск пользователя в сторе по email
+    const userToLogin = users.find(user => user.email === email);
+
+    if (!userToLogin) {
+      mySwal.fire({
+        title: <p>Пользователь с таким email не найден.</p>,
       });
+    } else if (userToLogin.password !== password) {
+      mySwal.fire({
+        title: <p>Неверный пароль.</p>,
+      });
+    } else {
+      navigate('/');
+    }
   };
-  return <Form title='sign in' handleSubmit={handleLogin} />;
+
+  return (
+    <div>
+      <Form title='sign in' handleSubmit={handleLogin} />
+    </div>
+  );
 };
 
 export const Login = memo(LoginImpl);

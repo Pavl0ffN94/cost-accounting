@@ -1,6 +1,5 @@
-import React from 'react';
+import React, {useState, useCallback, memo} from 'react';
 import '../../index.css';
-import {useState, useCallback, memo} from 'react';
 import {InputField} from './InputField';
 
 const FormImpl = ({title, handleSubmit}) => {
@@ -15,10 +14,6 @@ const FormImpl = ({title, handleSubmit}) => {
     password: '',
     confirmPassword: '',
   });
-
-  const hasErrors =
-    Object.values(errors).some(error => error !== '') ||
-    Object.values(formState.password).some(value => value === '');
 
   const validateField = useCallback(
     (value, valueKey) => {
@@ -53,12 +48,35 @@ const FormImpl = ({title, handleSubmit}) => {
     [setFormState, setErrors, validateField],
   );
 
+  const hasErrors = useCallback(() => {
+    const formValues = Object.values(formState);
+    const errorValues = Object.values(errors);
+
+    if (title === 'register') {
+      // Если это страница регистрации, добавьте проверку паролей
+      return (
+        formValues.some(value => value.trim() === '') ||
+        errorValues.some(error => error !== '') ||
+        (formState.confirmPassword && formState.password !== formState.confirmPassword) // Проверка паролей, если confirmPassword существует
+      );
+    } else {
+      // Если это страница входа, игнорируйте проверку подтверждения пароля
+      return (
+        formValues.some(value => value.trim() === '') ||
+        errorValues.some(error => error !== '')
+      );
+    }
+  }, [formState, errors, title]);
+
   const handleChandgeSubmit = useCallback(
     event => {
       event.preventDefault();
+      if (hasErrors()) {
+        return;
+      }
       handleSubmit(formState.email, formState.password);
     },
-    [handleSubmit, formState.email, formState.password],
+    [handleSubmit, formState.email, formState.password, hasErrors],
   );
 
   return (
@@ -87,7 +105,7 @@ const FormImpl = ({title, handleSubmit}) => {
         />
       ) : null}
 
-      <button type='submit' className='form__btn' disabled={hasErrors}>
+      <button type='submit' className='form__btn'>
         Go In
       </button>
     </form>

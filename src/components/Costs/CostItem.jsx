@@ -3,14 +3,15 @@ import {memo} from 'react';
 import {CostDate} from './CostDate';
 import {Card} from '../UI/Card';
 
-const CostItemImpl = props => {
+const CostItemImpl = ({date, title, amount}) => {
+  console.log(title);
   return (
     <li>
       <Card className='cost-item'>
-        <CostDate date={props.date} />
+        <CostDate date={date} />
         <div className='cost-item__description'>
-          <h2> {props.description} </h2>
-          <div className='cost-item__price'>${props.amount} </div>
+          <h2> {title} </h2>
+          <div className='cost-item__price'>${amount} </div>
         </div>
       </Card>
     </li>

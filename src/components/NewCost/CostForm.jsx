@@ -1,62 +1,60 @@
-import React, {useState} from 'react';
-import {memo} from 'react';
+import React, {useState, memo, useCallback} from 'react';
+import {InputField} from '../inputForm/InputField';
 import './CostForm.css';
 
-const CostFormImpl = props => {
-  const [inputName, setInputName] = useState('');
-  const [inputAmount, setInputAmount] = useState('');
-  const [inputDate, setInputDate] = useState('');
+const CostFormImpl = ({saveCostDate, onCancel}) => {
+  const [formState, setFormState] = useState({
+    title: '',
+    amount: '',
+    date: '',
+  });
 
-  const nameChangeHandler = e => {
-    setInputName(e.target.value);
-  };
+  const hadleChange = useCallback(
+    (newValue, valueKey) => {
+      setFormState(prevState => ({
+        ...prevState,
+        [valueKey]: newValue,
+      }));
+    },
 
-  const amountChangeHandler = e => {
-    setInputAmount(e.target.value);
-  };
+    [setFormState],
+  );
 
-  const dateChangeHandler = e => {
-    setInputDate(e.target.value);
-  };
-
-  const submitHandler = e => {
-    e.preventDefault();
-
-    const costDate = {
-      description: inputName,
-      amount: inputAmount,
-      date: new Date(inputDate),
-    };
-
-    props.onSaveCostDate(costDate);
-
-    setInputName('');
-    setInputAmount('');
-    setInputDate('');
-  };
+  const submitHandler = useCallback(
+    event => {
+      event.preventDefault();
+      saveCostDate(formState.title, formState.amount, formState.date);
+    },
+    [formState.title, formState.amount, formState.date, saveCostDate],
+  );
 
   return (
     <form onSubmit={submitHandler}>
       <div className='new-cost__controls'>
         <div className='new-cost__control'>
           <label>Название</label>
-          <input type='text' value={inputName} onChange={nameChangeHandler} />
+          <InputField
+            type='text'
+            valueKey='title'
+            value={formState.title}
+            onChange={hadleChange}
+          />
         </div>
         <div className='new-cost__control'>
           <label>Сумма</label>
-          <input
+          <InputField
             type='number'
-            value={inputAmount}
-            min='0.01'
-            step='0.01'
-            onChange={amountChangeHandler}
+            valueKey='amount'
+            value={formState.amount}
+            onChange={hadleChange}
           />
         </div>
         <div className='new-cost__control'>
           <label>Дата</label>
-          <input
-            onChange={dateChangeHandler}
-            value={inputDate}
+          <InputField
+            onChange={hadleChange}
+            value={formState.date}
+            valueKey='date'
             type='date'
             min='2019-01-01'
             step='2023-12-31'
@@ -64,7 +62,7 @@ const CostFormImpl = props => {
         </div>
         <div className='new-cost__actions'>
           <button type='submit'>Добавить расход</button>
-          <button type='button' onClick={props.onCancel}>
+          <button type='button' onClick={onCancel}>
             Отмена
           </button>
         </div>

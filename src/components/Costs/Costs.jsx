@@ -5,18 +5,24 @@ import {CostsFilter} from '../UI/CostFilte';
 import React, {useState} from 'react';
 import {CostList} from './CostList';
 import {CostDiagram} from './CostDiagram';
+import {useSelector} from 'react-redux';
+import {selectAllCosts} from '../../store/slices/costSlice';
 
-const CostsImpl = props => {
+const CostsImpl = () => {
+  const costs = useSelector(selectAllCosts);
+
+  console.log(costs);
+
   const [selectedYear, setSelectedYear] = useState('2023');
 
   const yearChangeHandler = year => {
     setSelectedYear(year);
   };
 
-  const filteredCosts = props.costs.filter(cost => {
+  const filteredCosts = costs.filter(cost => {
     return cost.date.getFullYear().toString() === selectedYear;
   });
-  console.log(filteredCosts);
+
   return (
     <div>
       <Card className='costs'>

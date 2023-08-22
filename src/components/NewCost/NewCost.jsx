@@ -1,22 +1,26 @@
-import React, {useState} from 'react';
-import {memo, useCallback} from 'react';
+import React, {useState, memo, useCallback} from 'react';
+import {useDispatch} from 'react-redux';
+import {addCost} from 'store/slices/costSlice';
 import {CostForm} from './CostForm';
 import './NewCost.css';
 import {nanoid} from '@reduxjs/toolkit';
 
-const NewCostImpl = props => {
+const NewCostImpl = () => {
   const [isFormVisible, setisFormVisible] = useState(false);
+  const dispatch = useDispatch();
 
   const saveCostDateHandler = useCallback(
-    inputCostDate => {
-      const costDate = {
-        ...inputCostDate,
+    (title, amount, date) => {
+      const newCost = {
         id: nanoid(),
+        title,
+        amount,
+        date: new Date(date),
       };
-      props.onAddCost(costDate);
-      setisFormVisible(false);
+      dispatch(addCost(newCost));
+      console.log(newCost);
     },
-    [props],
+    [dispatch],
   );
 
   const inputCostDateHandler = useCallback(() => {
@@ -33,7 +37,7 @@ const NewCostImpl = props => {
         <button onClick={inputCostDateHandler}>Добавить новый расход</button>
       )}
       {isFormVisible && (
-        <CostForm onSaveCostDate={saveCostDateHandler} onCancel={canceCostHandler} />
+        <CostForm saveCostDate={saveCostDateHandler} onCancel={canceCostHandler} />
       )}
     </div>
   );

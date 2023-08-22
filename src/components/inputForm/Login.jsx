@@ -1,6 +1,6 @@
 import React, {memo, useCallback} from 'react';
-import {useSelector} from 'react-redux';
-import {selectAllUsers} from '../../store/slices/usersSlice';
+import {useSelector, useDispatch} from 'react-redux';
+import {selectAllUsers, addUser} from '../../store/slices/usersSlice';
 import {Form} from './Form';
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
@@ -8,6 +8,7 @@ import {useNavigate} from 'react-router-dom';
 
 const LoginImpl = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const mySwal = withReactContent(Swal);
 
   const users = useSelector(selectAllUsers);
@@ -26,10 +27,11 @@ const LoginImpl = () => {
           title: <p>Неверный логин или пароль</p>,
         });
       } else {
+        dispatch(addUser({email, costs: []}));
         navigate('/');
       }
     },
-    [users, navigate, mySwal],
+    [users, navigate, mySwal, dispatch],
   );
 
   return (

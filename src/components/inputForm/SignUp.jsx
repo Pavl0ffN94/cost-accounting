@@ -3,8 +3,9 @@ import {useDispatch} from 'react-redux';
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
 import {Form} from '../inputForm/Form';
-import {addUser} from 'store/slices/userSlice';
+import {addUser} from 'store/slices/usersSlice';
 import {useNavigate} from 'react-router-dom';
+import {nanoid} from '@reduxjs/toolkit';
 
 function SignUpImpl() {
   const dispatch = useDispatch();
@@ -13,7 +14,7 @@ function SignUpImpl() {
 
   const handleRegister = (email, password) => {
     const newUser = {
-      id: Math.random(),
+      id: nanoid(),
       email: email,
       password: password,
     };

@@ -79,3 +79,17 @@ body {
   color: #000;
   border-radius: 15px;
 }
+
+.btn__logout{
+  font: inherit;
+  cursor: pointer;
+  display: flex;
+  height: 45px;
+  flex-direction: column;
+  justify-content: center;
+  padding: 1rem 2rem;
+  border: 1px solid #0089fb;
+  background-color: #eb0f0fd1;
+  color: #fefae1;
+  border-radius: 10px;
+}

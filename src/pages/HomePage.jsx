@@ -1,23 +1,25 @@
-import React from 'react';
+import React, {useCallback} from 'react';
 import {memo, useState} from 'react';
 import {Navigate} from 'react-router-dom';
 import {useAuth} from '../hooks/useAuth';
 import {useDispatch} from 'react-redux';
-import {removeUser} from 'store/slices/userSlice';
+import {removeUser} from '../store/slices/usersSlice';
 import {Costs} from '../components/Costs/Costs';
 import {NewCost} from '../components/NewCost/NewCost';
+import {useNavigate} from 'react-router-dom';
 
 const HomePageImpl = () => {
   const [costs, setCosts] = useState([
     {
       id: '',
-      date: new Date(),
+      date: new Date(''),
       description: '',
       amount: '',
     },
   ]);
-  const dispatch = useDispatch();
 
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const {isAuth, email} = useAuth();
 
   const addCostHandler = cost => {
@@ -26,11 +28,19 @@ const HomePageImpl = () => {
     });
   };
 
+  const logout = useCallback(() => {
+    dispatch(removeUser());
+    navigate('/login');
+  }, [dispatch, navigate]);
+
   return isAuth ? (
     <div>
       <NewCost onAddCost={addCostHandler} />
       <Costs costs={costs} />
-      <button onClick={() => dispatch(removeUser())}> Log out from {email}</button>
+      <button className='btn__logout' onClick={logout}>
+        {' '}
+        Log out {email}
+      </button>
     </div>
   ) : (
     <Navigate to='/login' replace />

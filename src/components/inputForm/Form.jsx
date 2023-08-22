@@ -53,17 +53,10 @@ const FormImpl = ({title, handleSubmit}) => {
     const errorValues = Object.values(errors);
 
     if (title === 'register') {
-      // Если это страница регистрации, добавьте проверку паролей
       return (
         formValues.some(value => value.trim() === '') ||
         errorValues.some(error => error !== '') ||
-        (formState.confirmPassword && formState.password !== formState.confirmPassword) // Проверка паролей, если confirmPassword существует
-      );
-    } else {
-      // Если это страница входа, игнорируйте проверку подтверждения пароля
-      return (
-        formValues.some(value => value.trim() === '') ||
-        errorValues.some(error => error !== '')
+        (formState.confirmPassword && formState.password !== formState.confirmPassword)
       );
     }
   }, [formState, errors, title]);

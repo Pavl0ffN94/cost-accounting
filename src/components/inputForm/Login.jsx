@@ -1,5 +1,6 @@
-import React, {memo} from 'react';
+import React, {memo, useCallback} from 'react';
 import {useSelector} from 'react-redux';
+import {selectAllUsers} from '../../store/slices/usersSlice';
 import {Form} from './Form';
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
@@ -9,24 +10,27 @@ const LoginImpl = () => {
   const navigate = useNavigate();
   const mySwal = withReactContent(Swal);
 
-  const users = useSelector(state => state.users.users);
+  const users = useSelector(selectAllUsers);
 
-  const handleLogin = (email, password) => {
-    // Поиск пользователя в сторе по email
-    const userToLogin = users.find(user => user.email === email);
+  const handleLogin = useCallback(
+    (email, password) => {
+      const userToLogin = users.find(user => user.email === email);
 
-    if (!userToLogin) {
-      mySwal.fire({
-        title: <p>Пользователь с таким email не найден.</p>,
-      });
-    } else if (userToLogin.password !== password) {
-      mySwal.fire({
-        title: <p>Неверный пароль.</p>,
-      });
-    } else {
-      navigate('/');
-    }
-  };
+      if (!userToLogin) {
+        mySwal.fire({
+          title: <p>Пользователь с таким email не найден.</p>,
+        });
+      }
+      if (userToLogin.password !== password) {
+        mySwal.fire({
+          title: <p>Неверный логин или пароль</p>,
+        });
+      } else {
+        navigate('/');
+      }
+    },
+    [users, navigate, mySwal],
+  );
 
   return (
     <div>

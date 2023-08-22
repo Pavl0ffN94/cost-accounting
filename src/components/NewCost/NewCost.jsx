@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import {memo, useCallback} from 'react';
 import {CostForm} from './CostForm';
 import './NewCost.css';
+import {nanoid} from '@reduxjs/toolkit';
 
 const NewCostImpl = props => {
   const [isFormVisible, setisFormVisible] = useState(false);
@@ -10,7 +11,7 @@ const NewCostImpl = props => {
     inputCostDate => {
       const costDate = {
         ...inputCostDate,
-        id: Math.random().toString(),
+        id: nanoid(),
       };
       props.onAddCost(costDate);
       setisFormVisible(false);

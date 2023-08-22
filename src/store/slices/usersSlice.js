@@ -4,11 +4,18 @@ const usersAdapter = createEntityAdapter();
 
 const usersSlice = createSlice({
   name: "users",
-  initialState: usersAdapter.getInitialState(),
+  initialState: {
+    ...usersAdapter.getInitialState(),
+    email:null,
+  },
   reducers: {
-    addUser: usersAdapter.addOne,
+    addUser:(state, action) =>  {
+      usersAdapter.addOne(state, action.payload);
+      state.email = action.payload.email
+    },
     removeUser: usersAdapter.removeOne,
     updateUser: usersAdapter.updateOne,
+
   },
 });
 

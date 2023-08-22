@@ -10,7 +10,7 @@ import {
      REGISTER,
      } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
-import { usersReducer } from './slices/userSlice';
+import { usersReducer } from './slices/usersSlice';
 import { costsReducer } from './slices/costSlice';
 
 const persistConfig = {

@@ -1,7 +1,7 @@
 import {Diagram} from '../Diagram/Diagram';
 import {memo} from 'react';
 
-const CostDiagramImpl = props => {
+const CostDiagramImpl = ({costs}) => {
   const diagramDataSets = [
     {label: 'Jan', value: 0},
     {label: 'Feb', value: 0},
@@ -17,11 +17,13 @@ const CostDiagramImpl = props => {
     {label: 'Dec', value: 0},
   ];
 
-  for (const cost of props.costs) {
-    const costMonth = cost.date.getMonth();
+  for (const cost of costs) {
+    const costDate = new Date(cost.date);
+    const costMonth = costDate.getMonth();
     diagramDataSets[costMonth].value += cost.amount;
   }
 
   return <Diagram dataSets={diagramDataSets} />;
 };
+
 export const CostDiagram = memo(CostDiagramImpl);

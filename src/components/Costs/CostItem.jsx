@@ -4,11 +4,12 @@ import {CostDate} from './CostDate';
 import {Card} from '../UI/Card';
 
 const CostItemImpl = ({date, title, amount}) => {
-  console.log(title);
+  const correctDate = new Date(date);
+
   return (
     <li>
       <Card className='cost-item'>
-        <CostDate date={date} />
+        <CostDate date={correctDate} />
         <div className='cost-item__description'>
           <h2> {title} </h2>
           <div className='cost-item__price'>${amount} </div>

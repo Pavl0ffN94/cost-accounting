@@ -1,10 +1,13 @@
 import './CostFilter.css';
-import {memo} from 'react';
+import {memo, useCallback} from 'react';
 
 const CostsFilterImpl = props => {
-  const yearChangeHandler = e => {
-    props.onChangeYear(e.target.value);
-  };
+  const yearChangeHandler = useCallback(
+    event => {
+      props.onChangeYear(event.target.value);
+    },
+    [props],
+  );
 
   return (
     <div className='costs-filter'>

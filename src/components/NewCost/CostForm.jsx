@@ -1,13 +1,18 @@
-import React, {useState, memo, useCallback} from 'react';
+import React, {useState, memo, useCallback, useMemo} from 'react';
 import {InputField} from '../inputForm/InputField';
 import './CostForm.css';
 
 const CostFormImpl = ({saveCostDate, onCancel}) => {
-  const [formState, setFormState] = useState({
-    title: '',
-    amount: '',
-    date: '',
-  });
+  const initialFormState = useMemo(
+    () => ({
+      title: '',
+      amount: '',
+      date: '',
+    }),
+    [],
+  );
+
+  const [formState, setFormState] = useState(initialFormState);
 
   const hadleChange = useCallback(
     (newValue, valueKey) => {
@@ -20,12 +25,23 @@ const CostFormImpl = ({saveCostDate, onCancel}) => {
     [setFormState],
   );
 
+  const isFormValid = useCallback(() => {
+    return (
+      formState.title.trim() !== '' &&
+      formState.amount.trim() !== '' &&
+      formState.date.trim() !== ''
+    );
+  }, [formState.title, formState.amount, formState.date]);
+
   const submitHandler = useCallback(
     event => {
       event.preventDefault();
+      if (!isFormValid()) {
+        return;
+      }
       saveCostDate(formState.title, formState.amount, formState.date);
     },
-    [formState.title, formState.amount, formState.date, saveCostDate],
+    [formState, saveCostDate, isFormValid],
   );
 
   return (
@@ -57,7 +73,7 @@ const CostFormImpl = ({saveCostDate, onCancel}) => {
             valueKey='date'
             type='date'
             min='2019-01-01'
-            step='2023-12-31'
+            max='2023-12-31'
           />
         </div>
         <div className='new-cost__actions'>

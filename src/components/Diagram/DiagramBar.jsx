@@ -1,11 +1,11 @@
 import {memo} from 'react';
 import './DiagramBar.css';
 
-const DiagramBarImpl = props => {
+const DiagramBarImpl = ({value, maxValue, label}) => {
   let barFillHeight = '0%';
 
-  if (props.maxValue > 0) {
-    barFillHeight = Math.round((props.value / props.maxValue) * 100) + '%';
+  if (maxValue > 0) {
+    barFillHeight = Math.round((value / maxValue) * 100) + '%';
   }
 
   return (
@@ -13,7 +13,7 @@ const DiagramBarImpl = props => {
       <div className='diagram-bar__inner'>
         <div className='diagram-bar__fill' style={{height: barFillHeight}}></div>
       </div>
-      <div className='diagram-bar__label'> {props.label} </div>
+      <div className='diagram-bar__label'> {label} </div>
     </div>
   );
 };

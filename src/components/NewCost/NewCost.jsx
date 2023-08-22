@@ -1,6 +1,6 @@
 import React, {useState, memo, useCallback} from 'react';
-import {useDispatch} from 'react-redux';
-import {addCost} from 'store/slices/costSlice';
+import {useDispatch, useSelector} from 'react-redux';
+import {addCost} from '../../store/slices/costSlice';
 import {CostForm} from './CostForm';
 import './NewCost.css';
 import {nanoid} from '@reduxjs/toolkit';
@@ -9,18 +9,22 @@ const NewCostImpl = () => {
   const [isFormVisible, setisFormVisible] = useState(false);
   const dispatch = useDispatch();
 
+  const currentUser = useSelector(state => state.users.currentUser);
+
   const saveCostDateHandler = useCallback(
     (title, amount, date) => {
       const newCost = {
         id: nanoid(),
         title,
         amount,
-        date: new Date(date),
+        date,
+        userId: currentUser.id,
       };
       dispatch(addCost(newCost));
-      console.log(newCost);
+
+      setisFormVisible(false);
     },
-    [dispatch],
+    [dispatch, currentUser],
   );
 
   const inputCostDateHandler = useCallback(() => {

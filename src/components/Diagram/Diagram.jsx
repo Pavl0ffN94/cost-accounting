@@ -1,14 +1,14 @@
 import './Diagram.css';
 import {DiagramBar} from './DiagramBar';
 
-export const Diagram = props => {
-  const dataSetsValues = props.dataSets.map(dataSet => dataSet.value);
+export const Diagram = ({dataSets}) => {
+  const dataSetsValues = dataSets.map(dataSet => dataSet.value);
 
   const maxMonthCosts = Math.max(...dataSetsValues);
 
   return (
     <div className='diagram'>
-      {props.dataSets.map(dataSet => (
+      {dataSets.map(dataSet => (
         <DiagramBar
           key={dataSet.label}
           value={dataSet.value}

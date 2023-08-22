@@ -1,28 +1,24 @@
-import React, {useCallback, memo, useState} from 'react';
+import React, {useCallback, memo} from 'react';
 import {Navigate} from 'react-router-dom';
-import {useAuth} from '../hooks/useAuth';
-import {useDispatch} from 'react-redux';
-import {removeUser} from '../store/slices/usersSlice';
+import {useDispatch, useSelector} from 'react-redux';
+import {setCurrentUser, selectCurrentUser} from '../store/slices/usersSlice'; // Импортируем селектор для текущего пользователя
 import {Costs} from '../components/Costs/Costs';
 import {NewCost} from '../components/NewCost/NewCost';
-import {useNavigate} from 'react-router-dom';
 
 const HomePageImpl = () => {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
-  const {isAuth, email} = useAuth();
+  const currentUser = useSelector(selectCurrentUser); // Используем селектор для текущего пользователя
 
   const logout = useCallback(() => {
-    dispatch(removeUser());
-    navigate('/login');
-  }, [dispatch, navigate]);
+    dispatch(setCurrentUser(null)); // Сбрасываем текущего пользователя
+  }, [dispatch]);
 
-  return isAuth ? (
+  return currentUser ? (
     <div>
       <NewCost />
       <Costs />
       <button className='btn__logout' onClick={logout}>
-        Log out {email}
+        Log out {currentUser.email}
       </button>
     </div>
   ) : (

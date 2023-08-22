@@ -7,11 +7,11 @@ import {CostList} from './CostList';
 import {CostDiagram} from './CostDiagram';
 import {useSelector} from 'react-redux';
 import {selectAllCosts} from '../../store/slices/costSlice';
+import {selectCurrentUser} from '../../store/slices/usersSlice';
 
 const CostsImpl = () => {
   const costs = useSelector(selectAllCosts);
-
-  console.log(costs);
+  const currentUser = useSelector(selectCurrentUser);
 
   const [selectedYear, setSelectedYear] = useState('2023');
 
@@ -20,7 +20,9 @@ const CostsImpl = () => {
   };
 
   const filteredCosts = costs.filter(cost => {
-    return cost.date.getFullYear().toString() === selectedYear;
+    const costDate = new Date(cost.date);
+    const costYear = costDate.getFullYear().toString();
+    return costYear === selectedYear && cost.userId === currentUser.id;
   });
 
   return (
@@ -33,4 +35,5 @@ const CostsImpl = () => {
     </div>
   );
 };
+
 export const Costs = memo(CostsImpl);

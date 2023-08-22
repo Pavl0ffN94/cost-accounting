@@ -1,6 +1,6 @@
 import React, {memo, useCallback} from 'react';
 import {useSelector, useDispatch} from 'react-redux';
-import {selectAllUsers, addUser} from '../../store/slices/usersSlice';
+import {selectAllUsers, setCurrentUser} from '../../store/slices/usersSlice';
 import {Form} from './Form';
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
@@ -19,15 +19,14 @@ const LoginImpl = () => {
 
       if (!userToLogin) {
         mySwal.fire({
-          title: <p>Пользователь с таким email не найден.</p>,
+          title: 'Пользователь с таким email не найден',
         });
-      }
-      if (userToLogin.password !== password) {
+      } else if (userToLogin.password !== password) {
         mySwal.fire({
-          title: <p>Неверный логин или пароль</p>,
+          title: ' Неверный логин или пароль',
         });
       } else {
-        dispatch(addUser({email, costs: []}));
+        dispatch(setCurrentUser(userToLogin));
         navigate('/');
       }
     },

@@ -1,6 +1,5 @@
-import React from 'react';
+import React, {useState, useCallback, memo} from 'react';
 import '../../index.css';
-import {useState, useCallback, memo} from 'react';
 
 const InputImpl = ({value: propsValue, onChange, valueKey, type, error}) => {
   const [value, setValue] = useState(propsValue);

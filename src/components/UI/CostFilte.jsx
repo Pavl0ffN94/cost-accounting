@@ -8,7 +8,6 @@ const CostsFilterImpl = props => {
     },
     [props],
   );
-
   return (
     <div className='costs-filter'>
       <div className='costs-filter__control'>

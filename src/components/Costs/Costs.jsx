@@ -1,13 +1,13 @@
-import './Costs.css';
-import {memo} from 'react';
+import React, {useState, memo} from 'react';
+
 import {Card} from '../UI/Card';
 import {CostsFilter} from '../UI/CostFilte';
-import React, {useState} from 'react';
 import {CostList} from './CostList';
 import {CostDiagram} from './CostDiagram';
 import {useSelector} from 'react-redux';
 import {selectAllCosts} from '../../store/slices/costSlice';
 import {selectCurrentUser} from '../../store/slices/usersSlice';
+import './Costs.css';
 
 const CostsImpl = () => {
   const costs = useSelector(selectAllCosts);
@@ -24,7 +24,7 @@ const CostsImpl = () => {
     const costYear = costDate.getFullYear().toString();
     return costYear === selectedYear && cost.userId === currentUser.id;
   });
-
+  console.log(costs);
   return (
     <div>
       <Card className='costs'>

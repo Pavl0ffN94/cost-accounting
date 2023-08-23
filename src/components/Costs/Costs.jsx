@@ -24,7 +24,6 @@ const CostsImpl = () => {
     const costYear = costDate.getFullYear().toString();
     return costYear === selectedYear && cost.userId === currentUser.id;
   });
-  console.log(costs);
   return (
     <div>
       <Card className='costs'>
